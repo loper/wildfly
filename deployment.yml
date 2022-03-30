@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: wildfly
-          image: esl:v3
+          image: docker.io/library/esl:v3
           imagePullPolicy: Never
           ports:
             - containerPort: 80
