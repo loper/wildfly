@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wildfly
+spec:
+  selector:
+    matchLabels:
+      app: wildfly
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wildfly
+    spec:
+      containers:
+        - name: wildfly
+          image: esl:v3
+          ports:
+            - containerPort: 80
+          env:   
+            - name: DB_HOST   
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-conf
+                  key: host
+            - name: DB_NAME  
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-conf
+                  key: name
+            - name: POSTGRES_USER  
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials 
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_password
