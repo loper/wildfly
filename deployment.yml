@@ -19,23 +19,23 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 80
-          env:   
-            - name: DB_HOST   
+          env:
+            - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
                   name: postgres-conf
                   key: host
-            - name: DB_NAME  
+            - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
                   name: postgres-conf
                   key: name
-            - name: POSTGRES_USER  
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials 
+                  name: postgres-credentials
                   key: postgres_user
-            - name: POSTGRES_PASSWORD 
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-credentials
