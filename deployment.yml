@@ -16,6 +16,7 @@ spec:
       containers:
         - name: wildfly
           image: esl:v3
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
           env:   
