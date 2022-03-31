@@ -19,3 +19,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+          volumeMounts:
+            - mountPath: /opt/jboss/wildfly/standalone/deployments
+              name: deployments
+      volumes:
+        - name: deployments
+          hostPath:
+            path: /home/wildfly/2022-03-28/deployments
