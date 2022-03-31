@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
         - name: wildfly
-          image: docker.io/library/esl:v3
-          imagePullPolicy: Never
+          image: localhost:5000/esl
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
