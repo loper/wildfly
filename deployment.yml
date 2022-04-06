@@ -28,6 +28,11 @@ spec:
                 configMapKeyRef:
                   name: postgres-conf
                   key: host
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-conf
+                  key: port
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
