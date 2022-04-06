@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: wildfly
-          image: localhost:5000/esl:v6
+          image: localhost:5000/esl:v7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
