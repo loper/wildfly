@@ -22,7 +22,28 @@ spec:
           volumeMounts:
             - mountPath: /opt/jboss/wildfly/standalone/deployments
               name: deployments
+          env:   
+            - name: POSTGRES_HOST   
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-conf
+                  key: host
+            - name: POSTGRES_DB  
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-conf
+                  key: name
+            - name: POSTGRES_USER  
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials 
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_password
       volumes:
         - name: deployments
           hostPath:
-            path: /home/wildfly/2022-03-28/deployments
+            path: /home/wildfly/deployments
