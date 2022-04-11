@@ -5,4 +5,4 @@ metadata:
 data:
   host: "10.1.10.11"
   port: "5432"
-  name: "warehouse"
+  name: "ElectronicShelfLabels"
