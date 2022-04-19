@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.name }}
   annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/postgres-configmap.yml") . | sha256sum }}  
+        checksum/config: {{ include (print $.Template.BasePath "/postgres-configmap.yml") . | sha256sum }}
 spec:
   selector:
     matchLabels:
@@ -32,7 +32,7 @@ spec:
             - name: POSTGRES_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.name }}conf
+                  name: {{ .Values.name }}-conf
                   key: port
             - name: POSTGRES_DB
               valueFrom:
