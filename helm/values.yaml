@@ -1,0 +1,14 @@
+name: wildfly
+
+replicas: 1
+
+image:
+  repository: localhost:5000
+  name: esl
+  tag: v9
+  pullPolicy: IfNotPresent
+
+network:
+  port: 1080
+
+mountpoint: /home/wildfly/deployments

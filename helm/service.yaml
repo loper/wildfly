@@ -1,10 +1,11 @@
----
 apiVersion: v1
 kind: Service
 metadata:
   name: wildfly
   labels:
     name: wildfly
+  namespace: wf
+  resourceVersion: "123"
 spec:
   ports:
     - port: 1080

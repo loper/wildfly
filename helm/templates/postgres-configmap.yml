@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-conf
+  name: {{ .Values.name }}-conf
 data:
   host: "10.1.10.11"
   port: "5432"

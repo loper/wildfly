@@ -1,54 +1,55 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wildfly
+  name: {{ .Values.name }}
+  annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/postgres-configmap.yml") . | sha256sum }}  
 spec:
   selector:
     matchLabels:
-      app: wildfly
-  replicas: 1
+      app: {{ .Values.name }}
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
-        app: wildfly
+        app: {{ .Values.name }}
     spec:
       containers:
-        - name: wildfly
-          image: localhost:5000/esl:v9
-          imagePullPolicy: IfNotPresent
+        - name: {{ .Values.name }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 1080
+            - containerPort: {{ .Values.network.port }}
           volumeMounts:
-            - mountPath: /opt/jboss/wildfly/standalone/deployments
+            - mountPath: /opt/jboss/{{ .Values.name }}/standalone/deployments
               name: deployments
           env:
             - name: POSTGRES_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-conf
+                  name: {{ .Values.name }}-conf
                   key: host
             - name: POSTGRES_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-conf
+                  name: {{ .Values.name }}conf
                   key: port
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-conf
+                  name: {{ .Values.name }}-conf
                   key: name
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: {{ .Values.name }}-credentials
                   key: postgres_user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
+                  name: {{ .Values.name }}-credentials
                   key: postgres_password
       volumes:
         - name: deployments
           hostPath:
-            path: /home/wildfly/deployments
+            path: {{ .Values.mountpoint }}
